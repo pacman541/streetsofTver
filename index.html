@@ -62,7 +62,7 @@
   </head>
   <body>
     <div id="map"></div>
- <script type="text/javascript" src="streets_age.js"></script>
+
     <script>
       function getColorFor(age) {
     return age >= 1000 ? 'orange' :
@@ -105,10 +105,7 @@
         timelineControl.addTo(map);
         timelineControl.addTimelines(timeline);
       }
-var geojson = L.geoJson(onLoadData, {
-		style: style,
-	}).addTo(map);
-    </script>
-   
+	  </script>  
+	  <script src="streets_age.js"></script>
   </body>
 </html>
