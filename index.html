@@ -105,7 +105,9 @@
         timelineControl.addTo(map);
         timelineControl.addTimelines(timeline);
       }
-
+var geojson = L.geoJson(onLoadData, {
+		style: style,
+	}).addTo(map);
     </script>
    
   </body>
