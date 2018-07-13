@@ -1,4 +1,5 @@
-var onLoadData = {
+onLoadData( 
+{
 "type": "FeatureCollection",
 "name": "streets_age",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
@@ -1718,3 +1719,4 @@ var onLoadData = {
 { "type": "Feature", "properties": { "id": 15930, "name": "2-й Южный проезд", "year_start": "2-я половина 1950-х гг.", "year": 1957, "start": 1957, "year_end": "конец 1980-х гг.", "end": 1989 }, "geometry": { "type": "LineString", "coordinates": [ [ 35.91578, 56.816073 ], [ 35.914688, 56.815186 ] ] } }
 ]
 }
+);
