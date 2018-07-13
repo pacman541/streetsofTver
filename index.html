@@ -1,0 +1,112 @@
+
+<html>
+  <head>
+    <title>Улицы Твери</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css" rel="stylesheet">
+
+    <script src="leaflet.timeline.js"></script>
+      <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+    <style>
+      html, body{
+        margin: 0;
+        padding: 0;
+      }
+      #map{
+        width: 100vw;
+        height: 100vh;
+      }
+      .leaflet-bottom.leaflet-left{
+		
+		border-radius: 15px;
+        width: 100%;
+      }
+      .leaflet-control-container{
+	
+        box-sizing: border-box;
+        width: 50%;
+        margin: 25px;
+        margin-bottom: 5px;
+		border-radius: 5px;
+      }
+	  .leaflet-timeline-controls{
+	  background-color: green;
+	  border-radius: 15px;
+	  }
+      .leaflet-control.leaflet-timeline-control .button-container button{
+          position:relative;width:20%;height:20px;
+      }
+      .leaflet-control.leaflet-timeline-control{
+          width:96%;box-sizing:border-box;margin:2%;margin-bottom:20px;text-        align:center;font-weight: 800;
+      }
+      .time-text{
+          font-weight: 800;
+          text-decoration: underline;
+          color: #363636;
+      }
+	  .info { 
+            padding: 6px 8px;
+            font: 14px/16px Tahoma;
+            background: white;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+        } 
+        .info h4 { 
+            margin: 0 0 5px;
+            color: #777;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      function getColorFor(age) {
+    return age >= 1000 ? 'orange' :
+           /*age >= 1941 ? '#21f321' :
+           age >= 1917 ? '#f3f121' :
+           age >= 1850 ? '#ffa349' :
+           age >= 1763 ? '#f65252' :
+           age >= 1000 ? '#f550f5' :*/
+                           'orange';
+} 
+      var osmUrl = 'http://{s}.tile.osm.kosmosnimki.ru/night/{z}/{x}/{y}.png';
+      var osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://litvitsky.tvercult.ru/">Энциклопедия тверских улиц, </a><a href="https://tvermaps.blogspot.com/">Другие карты Твери и области</a>';
+      var osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
+      var map = L.map('map', {layers: [osm], center: new L.LatLng(56.8501,35.9140), zoom: 13, fullscreenControl: true });
+       
+      function onLoadData(data){
+        var timeline = L.timeline(data, {
+          style: function(data){
+            return {
+              stroke: true,
+              color: getColorFor(data.properties.year),
+			  weight: 3,
+              opacity: 1
+            }
+          },
+          waitToUpdateMap: true,
+		  
+          onEachFeature: function(feature, layer) {
+            layer.bindTooltip(feature.properties.name + "<br/>время появления: " + feature.properties.year_start);
+          }
+        });
+
+        var timelineControl = L.timelineSliderControl({
+        
+          enableKeyboardControls: true,
+		  steps: 215,
+		  duration: 100000,
+        });
+        timeline.addTo(map);
+        timelineControl.addTo(map);
+        timelineControl.addTimelines(timeline);
+      }
+
+    </script>
+    <script src="./streets_age.js"></script>
+  </body>
+</html>
