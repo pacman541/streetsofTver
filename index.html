@@ -73,7 +73,7 @@
            age >= 1000 ? '#f550f5' :*/
                            'orange';
 } 
-      var osmUrl = 'http://{s}.tile.osm.kosmosnimki.ru/night/{z}/{x}/{y}.png';
+      var osmUrl = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png';
       var osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://litvitsky.tvercult.ru/">Энциклопедия тверских улиц, </a><a href="https://tvermaps.blogspot.com/">Другие карты Твери и области</a>';
       var osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
       var map = L.map('map', {layers: [osm], center: new L.LatLng(56.8501,35.9140), zoom: 12, fullscreenControl: true });
